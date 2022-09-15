@@ -174,7 +174,7 @@ class AuthController extends ApiController
             ->where('email', $request->input('email'))
             ->first();
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token', ['as-candidate'])->plainTextToken;
 
         return $this->successResponse([
             'access_token' => $token,

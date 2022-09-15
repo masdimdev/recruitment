@@ -24,7 +24,7 @@ class LogoutTest extends TestCase
             'user_type' => User::TYPE_COMPANY,
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->createCompanyToken($user);
 
         $this->assertCount(1, $user->tokens()->get());
 

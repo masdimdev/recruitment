@@ -149,4 +149,5 @@ return [
 
     'attributes' => [],
 
+    'not_found' => 'Resource not found.'
 ];

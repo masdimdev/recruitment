@@ -53,6 +53,7 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::group([
         'as' => 'candidate.',
+        'middleware' => 'ability:as-candidate',
         'prefix' => '/candidate',
     ], function () {
         Route::group([
@@ -69,10 +70,23 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::post('/logout', 'logout')
                 ->name('logout');
         });
+
+        Route::group([
+            'as' => 'profile.',
+            'controller' => \App\Http\Controllers\Api\Candidate\ProfileController::class,
+            'prefix' => '/profile'
+        ], function () {
+            Route::get('/', 'profile')
+                ->name('index');
+
+            Route::match(['POST', 'PATCH'], '/', 'update')
+                ->name('update');
+        });
     });
 
     Route::group([
         'as' => 'company.',
+        'middleware' => 'ability:as-company',
         'prefix' => '/company',
     ], function () {
         Route::group([
@@ -89,5 +103,28 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::post('/logout', 'logout')
                 ->name('logout');
         });
+
+        Route::group([
+            'as' => 'profile.',
+            'controller' => \App\Http\Controllers\Api\Company\ProfileController::class,
+            'prefix' => '/profile'
+        ], function () {
+            Route::get('/', 'profile')
+                ->name('index');
+
+            Route::match(['POST', 'PATCH'], '/', 'update')
+                ->name('update');
+        });
     });
+});
+
+Route::group([
+    'as' => 'public.',
+    'prefix' => '/public'
+], function () {
+    Route::get('/candidate/{candidateId}', [\App\Http\Controllers\Api\General\CandidateController::class, 'profile'])
+        ->name('candidate.profile');
+
+    Route::get('/company/{companyId}', [\App\Http\Controllers\Api\General\CompanyController::class, 'profile'])
+        ->name('company.profile');
 });

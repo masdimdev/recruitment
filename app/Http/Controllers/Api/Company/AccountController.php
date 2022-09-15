@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Api\Company;
 
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\Candidate\Account\UpdateAccountRequest;
+use App\Http\Requests\Company\Account\UpdateAccountRequest;
 use App\Http\Resources\UserResource;
-use Illuminate\Http\Request;
 
 class AccountController extends ApiController
 {
@@ -94,7 +93,7 @@ class AccountController extends ApiController
      *     )
      * )
      *
-     * @param \App\Http\Requests\Candidate\Account\UpdateAccountRequest $request
+     * @param \App\Http\Requests\Company\Account\UpdateAccountRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -127,7 +126,7 @@ class AccountController extends ApiController
      * @OA\Post(
      *     path="/company/account/logout",
      *     summary="Logout company",
-     *     tags={"Company/Auth"},
+     *     tags={"Company/Account"},
      *     security={ {"sanctum": {} }},
      *     @OA\Response(
      *         response=200,
@@ -139,11 +138,9 @@ class AccountController extends ApiController
      *     )
      * )
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout(Request $request)
+    public function logout()
     {
         auth()->user()->currentAccessToken()->delete();
 

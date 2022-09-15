@@ -16,6 +16,7 @@ class CompanyProfileResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'email' => $this->user->email,
             'description' => $this->description,

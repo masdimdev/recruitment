@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Api\Candidate;
 
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\Candidate\Account\UpdateAccountRequest;
-use App\Http\Resources\UserResource;
+use App\Http\Requests\Candidate\Profile\UpdateProfileRequest;
+use App\Http\Resources\CandidateProfileResource;
 
-class AccountController extends ApiController
+class ProfileController extends ApiController
 {
     /**
      * @OA\Get(
-     *     path="/candidate/account",
-     *     summary="Candidate account",
-     *     tags={"Candidate/Account"},
+     *     path="/candidate/profile",
+     *     summary="Candidate profile",
+     *     tags={"Candidate/Profile"},
      *     security={ {"sanctum": {} }},
      *     @OA\Response(
      *         response=200,
@@ -26,16 +26,16 @@ class AccountController extends ApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function account()
+    public function profile()
     {
-        return $this->successResponse(new UserResource(auth()->user()));
+        return $this->successResponse(new CandidateProfileResource(auth()->user()->candidateProfile));
     }
 
     /**
      * @OA\Patch(
-     *     path="/candidate/account",
-     *     summary="Update candidate account",
-     *     tags={"Candidate/Account"},
+     *     path="/candidate/profile",
+     *     summary="Update candidate profile",
+     *     tags={"Candidate/Profile"},
      *     security={ {"sanctum": {} }},
      *     @OA\RequestBody(
      *         @OA\MediaType(
@@ -50,31 +50,31 @@ class AccountController extends ApiController
      *                     type="string",
      *                 ),
      *                 @OA\Property(
-     *                     property="email",
+     *                     property="phone_number",
      *                     type="string",
      *                 ),
      *                 @OA\Property(
-     *                     property="new_password",
+     *                     property="address",
      *                     type="string",
-     *                     format="password",
      *                 ),
      *                 @OA\Property(
-     *                     property="new_password_confirmation",
+     *                     property="date_of_birth",
+     *                     description="Format {YEAR}-{MONTH}-{DATE}",
      *                     type="string",
-     *                     format="password",
+     *                     format="date",
      *                 ),
      *                 @OA\Property(
-     *                     property="current_password",
-     *                     type="string",
-     *                     format="password",
+     *                     description="1: Male; 2: Female",
+     *                     property="sex",
+     *                     type="integer",
      *                 ),
      *                 example={
      *                     "first_name": "John",
      *                     "last_name": "Doe",
-     *                     "email": "john.doe@example.com",
-     *                     "new_password": "new-password",
-     *                     "new_password_confirmation": "new-password",
-     *                     "current_password": "password",
+     *                     "phone_number": "6281234567890",
+     *                     "address": "Jakarta, Indonesia",
+     *                     "date_of_birth": "1991-12-21",
+     *                     "sex": 1,
      *                 }
      *             )
      *         )
@@ -93,13 +93,13 @@ class AccountController extends ApiController
      *     )
      * )
      *
-     * @param \App\Http\Requests\Candidate\Account\UpdateAccountRequest $request
+     * @param \App\Http\Requests\Candidate\Profile\UpdateProfileRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateAccountRequest $request)
+    public function update(UpdateProfileRequest $request)
     {
-        $user = $request->user();
+        $user = $request->user()->load('candidateProfile');
 
         if ($request->input('first_name')) {
             $user->first_name = $request->input('first_name');
@@ -109,41 +109,25 @@ class AccountController extends ApiController
             $user->last_name = $request->input('last_name');
         }
 
-        if ($request->input('email')) {
-            $user->email = $request->input('email');
+        if ($request->input('phone_number')) {
+            $user->candidateProfile->phone_number = $request->input('phone_number');
         }
 
-        if ($request->input('new_password')) {
-            $user->password = bcrypt($request->input('new_password'));
+        if ($request->input('address')) {
+            $user->candidateProfile->address = $request->input('address');
         }
 
+        if ($request->input('date_of_birth')) {
+            $user->candidateProfile->date_of_birth = $request->input('date_of_birth');
+        }
+
+        if ($request->input('sex')) {
+            $user->candidateProfile->sex = $request->input('sex');
+        }
+
+        $user->candidateProfile->save();
         $user->save();
 
-        return $this->successResponse(new UserResource($user));
-    }
-
-    /**
-     * @OA\Post(
-     *     path="/candidate/account/logout",
-     *     summary="Logout candidate",
-     *     tags={"Candidate/Account"},
-     *     security={ {"sanctum": {} }},
-     *     @OA\Response(
-     *         response=200,
-     *         description="OK",
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="Authentication error",
-     *     )
-     * )
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function logout()
-    {
-        auth()->user()->currentAccessToken()->delete();
-
-        return $this->successResponse();
+        return $this->successResponse(new CandidateProfileResource($user->candidateProfile));
     }
 }

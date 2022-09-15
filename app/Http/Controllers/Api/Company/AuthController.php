@@ -108,7 +108,7 @@ class AuthController extends ApiController
             'date_of_establishment' => $request->input('date_of_establishment'),
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token', ['as-company'])->plainTextToken;
 
         $user->load('companyProfile');
 

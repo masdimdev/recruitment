@@ -25,7 +25,7 @@ class AccountTest extends TestCase
             'user_type' => User::TYPE_CANDIDATE,
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->createCandidateToken($user);
 
         $response = $this->getJson(route('api.candidate.account.index'), [
             'Authorization' => "Bearer {$token}"
@@ -47,7 +47,7 @@ class AccountTest extends TestCase
         $newFirstName = 'Richard';
         $currentLastName = $user->last_name;
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->createCandidateToken($user);
 
         $response = $this->postJson(route('api.candidate.account.update'), [
             'first_name' => $newFirstName
@@ -74,7 +74,7 @@ class AccountTest extends TestCase
         $newLastName = 'Roe';
         $currentFirstName = $user->first_name;
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->createCandidateToken($user);
 
         $response = $this->postJson(route('api.candidate.account.update'), [
             'last_name' => $newLastName
@@ -100,7 +100,7 @@ class AccountTest extends TestCase
 
         $newEmail = 'new.email@example.com';
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->createCandidateToken($user);
 
         $response = $this->postJson(route('api.candidate.account.update'), [
             'email' => $newEmail,
@@ -126,7 +126,7 @@ class AccountTest extends TestCase
 
         $newEmail = 'new.email@example.com';
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->createCandidateToken($user);
 
         $response = $this->postJson(route('api.candidate.account.update'), [
             'email' => $newEmail,
@@ -150,7 +150,7 @@ class AccountTest extends TestCase
 
         $newEmail = 'new.email@example.com';
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->createCandidateToken($user);
 
         $response = $this->postJson(route('api.candidate.account.update'), [
             'email' => $newEmail,
@@ -175,7 +175,7 @@ class AccountTest extends TestCase
 
         $newPassword = 'new-password';
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->createCandidateToken($user);
 
         $response = $this->postJson(route('api.candidate.account.update'), [
             'new_password' => $newPassword,
@@ -201,7 +201,7 @@ class AccountTest extends TestCase
 
         $newPassword = 'new-password';
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->createCandidateToken($user);
 
         $response = $this->postJson(route('api.candidate.account.update'), [
             'new_password' => $newPassword,
@@ -226,7 +226,7 @@ class AccountTest extends TestCase
 
         $newPassword = 'new-password';
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->createCandidateToken($user);
 
         $response = $this->postJson(route('api.candidate.account.update'), [
             'new_password' => $newPassword,
@@ -252,7 +252,7 @@ class AccountTest extends TestCase
 
         $newPassword = 'new-password';
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->createCandidateToken($user);
 
         $response = $this->postJson(route('api.candidate.account.update'), [
             'new_password' => $newPassword,
@@ -277,7 +277,7 @@ class AccountTest extends TestCase
 
         $newPassword = 'new-password';
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->createCandidateToken($user);
 
         $response = $this->postJson(route('api.candidate.account.update'), [
             'new_password' => $newPassword,

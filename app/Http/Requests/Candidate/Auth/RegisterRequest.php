@@ -44,7 +44,11 @@ class RegisterRequest extends FormRequest
             'email' => ['required', 'email', Rule::unique(User::class)],
             'password' => ['required', 'min:6'],
             'password_confirmation' => ['required', 'same:password'],
-            'phone_number' => ['required', 'digits_between:6,16'],
+            'phone_number' => [
+                'required',
+                'digits_between:6,16',
+                Rule::unique(CandidateProfile::class),
+            ],
             'address' => ['required', 'string', 'max:200'],
             'date_of_birth' => ['required', 'date', 'date_format:Y-m-d', 'before:' . now()],
             'sex' => ['required', Rule::in(CandidateProfile::SEX_MALE, CandidateProfile::SEX_FEMALE)],

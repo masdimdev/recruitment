@@ -24,4 +24,13 @@ trait ApiResponse
             'data' => null
         ], $code);
     }
+
+    protected function notFoundResponse($message = null): JsonResponse
+    {
+        if (empty($message)) {
+            $message = __('validation.not_found');
+        }
+
+        return $this->errorResponse($message, [], 404);
+    }
 }
