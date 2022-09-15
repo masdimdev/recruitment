@@ -127,4 +127,7 @@ Route::group([
 
     Route::get('/company/{companyId}', [\App\Http\Controllers\Api\General\CompanyController::class, 'profile'])
         ->name('company.profile');
+
+    Route::get('/job-category', [\App\Http\Controllers\Api\General\JobCategoryController::class, 'index'])
+        ->name('job-category.index');
 });
