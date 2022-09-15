@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Traits\ApiResponse;
 
 /**
  * @OA\Info(

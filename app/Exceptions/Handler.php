@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use App\ApiResponse;
+use App\Traits\ApiResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 

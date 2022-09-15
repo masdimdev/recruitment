@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::get('/', 'account')
                 ->name('index');
 
-            Route::post('/', 'updateAccount')
+            Route::match(['POST', 'PATCH'], '/', 'update')
                 ->name('update');
 
             Route::post('/logout', 'logout')
@@ -83,7 +83,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::get('/', 'account')
                 ->name('index');
 
-            Route::post('/', 'updateAccount')
+            Route::match(['POST', 'PATCH'], '/', 'update')
                 ->name('update');
 
             Route::post('/logout', 'logout')
