@@ -23,6 +23,7 @@ class CandidateProfile extends Model
         'address',
         'date_of_birth',
         'sex',
+        'user_id',
     ];
 
     public function user(): BelongsTo

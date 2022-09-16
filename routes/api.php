@@ -115,6 +115,24 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::match(['POST', 'PATCH'], '/', 'update')
                 ->name('update');
         });
+
+        Route::group([
+            'as' => 'job-vacancy.',
+            'controller' => \App\Http\Controllers\Api\Company\JobVacancyController::class,
+            'prefix' => '/job-vacancy'
+        ], function () {
+            Route::get('/', 'index')
+                ->name('index');
+
+            Route::get('/{jobId}', 'show')
+                ->name('show');
+
+            Route::post('/', 'store')
+                ->name('store');
+
+//            Route::match(['POST', 'PATCH'], '/', 'update')
+//                ->name('update');
+        });
     });
 });
 
@@ -130,4 +148,7 @@ Route::group([
 
     Route::get('/job-category', [\App\Http\Controllers\Api\General\JobCategoryController::class, 'index'])
         ->name('job-category.index');
+
+    Route::get('/job-vacancy', [\App\Http\Controllers\Api\General\JobVacancyController::class, 'index'])
+        ->name('job-vacancy.index');
 });
