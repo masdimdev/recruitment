@@ -115,7 +115,7 @@ class AuthController extends ApiController
             'sex' => $request->input('sex'),
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token', ['as-candidate'])->plainTextToken;
 
         return $this->successResponse([
             'access_token' => $token,

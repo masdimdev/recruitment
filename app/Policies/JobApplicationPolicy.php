@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\JobVacancy;
+use App\Models\JobApplication;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class JobVacancyPolicy
+class JobApplicationPolicy
 {
     use HandlesAuthorization;
 
@@ -25,14 +25,15 @@ class JobVacancyPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param \App\Models\User       $user
-     * @param \App\Models\JobVacancy $jobVacancy
+     * @param \App\Models\User           $user
+     * @param \App\Models\JobApplication $jobApplication
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, JobVacancy $jobVacancy)
+    public function view(User $user, JobApplication $jobApplication)
     {
-        //
+        return $jobApplication->candidate->user_id == $user->id
+               || $jobApplication->jobVacancy->company->user_id == $user->id;
     }
 
     /**
@@ -50,38 +51,39 @@ class JobVacancyPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param \App\Models\User       $user
-     * @param \App\Models\JobVacancy $jobVacancy
+     * @param \App\Models\User           $user
+     * @param \App\Models\JobApplication $jobApplication
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, JobVacancy $jobVacancy)
+    public function update(User $user, JobApplication $jobApplication)
     {
-        return $user->companyProfile->id == $jobVacancy->company_id;
+        return $jobApplication->candidate->user_id == $user->id
+               || $jobApplication->jobVacancy->company->user_id == $user->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     * @param \App\Models\User       $user
-     * @param \App\Models\JobVacancy $jobVacancy
+     * @param \App\Models\User           $user
+     * @param \App\Models\JobApplication $jobApplication
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, JobVacancy $jobVacancy)
+    public function delete(User $user, JobApplication $jobApplication)
     {
-        return $user->companyProfile->id == $jobVacancy->company_id;
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
-     * @param \App\Models\User       $user
-     * @param \App\Models\JobVacancy $jobVacancy
+     * @param \App\Models\User           $user
+     * @param \App\Models\JobApplication $jobApplication
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, JobVacancy $jobVacancy)
+    public function restore(User $user, JobApplication $jobApplication)
     {
         //
     }
@@ -89,12 +91,12 @@ class JobVacancyPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param \App\Models\User       $user
-     * @param \App\Models\JobVacancy $jobVacancy
+     * @param \App\Models\User           $user
+     * @param \App\Models\JobApplication $jobApplication
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, JobVacancy $jobVacancy)
+    public function forceDelete(User $user, JobApplication $jobApplication)
     {
         //
     }

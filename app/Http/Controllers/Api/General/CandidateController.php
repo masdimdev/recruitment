@@ -24,10 +24,6 @@ class CandidateController extends ApiController
      *         description="OK",
      *     ),
      *     @OA\Response(
-     *         response=401,
-     *         description="Authentication error",
-     *     ),
-     *     @OA\Response(
      *         response=404,
      *         description="Resource not found",
      *     )
@@ -35,7 +31,7 @@ class CandidateController extends ApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function profile($candidateId)
+    public function show($candidateId)
     {
         if (is_numeric($candidateId)) {
             $candidateProfile = CandidateProfile::find($candidateId);

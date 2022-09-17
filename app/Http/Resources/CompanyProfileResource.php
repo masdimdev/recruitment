@@ -18,7 +18,6 @@ class CompanyProfileResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->user->email,
             'description' => $this->description,
             'address' => $this->address,
             'date_of_establishment' => $this->date_of_establishment,

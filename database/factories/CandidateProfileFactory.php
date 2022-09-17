@@ -14,12 +14,17 @@ class CandidateProfileFactory extends Factory
      */
     public function definition()
     {
+        $user = User::factory([
+            'user_type' => User::TYPE_CANDIDATE
+        ]);
+        $user->afterCreating = collect([]);
+
         return [
-            'phone_number' => $this->faker->phoneNumber,
+            'phone_number' => $this->faker->numerify('62#############'),
             'address' => $this->faker->address,
             'date_of_birth' => $this->faker->date(),
             'sex' => 1, // Male
-            'user_id' => User::factory(),
+            'user_id' => $user,
         ];
     }
 }

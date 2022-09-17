@@ -17,16 +17,16 @@ class CompanyProfileTest extends TestCase
             'user_type' => User::TYPE_COMPANY,
         ]);
 
-        $response = $this->getJson(route('api.public.company.profile', ['companyId' => $user->companyProfile->id]));
+        $response = $this->getJson(route('api.public.company.show', ['companyId' => $user->companyProfile->id]));
 
         $response->assertSuccessful();
 
-        $this->assertEquals($user->email, $response->json('data.email'));
+        $this->assertEquals($user->companyProfile->name, $response->json('data.name'));
     }
 
     public function testUserCannotGetInvalidCompanyPublicProfile()
     {
-        $response = $this->getJson(route('api.public.company.profile', ['companyId' => 'invalid-id']));
+        $response = $this->getJson(route('api.public.company.show', ['companyId' => 'invalid-id']));
 
         $response->assertNotFound();
     }

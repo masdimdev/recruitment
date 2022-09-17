@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::group(['middleware' => 'guest'], function () {
     ], function () {
         Route::group([
             'as' => 'auth.',
-            'controller' => \App\Http\Controllers\Api\Candidate\AuthController::class,
+            'controller' => Api\Candidate\AuthController::class,
             'prefix' => '/auth'
         ], function () {
             Route::post('/register', 'register')
@@ -38,7 +39,7 @@ Route::group(['middleware' => 'guest'], function () {
     ], function () {
         Route::group([
             'as' => 'auth.',
-            'controller' => \App\Http\Controllers\Api\Company\AuthController::class,
+            'controller' => Api\Company\AuthController::class,
             'prefix' => '/auth'
         ], function () {
             Route::post('/register', 'register')
@@ -58,13 +59,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     ], function () {
         Route::group([
             'as' => 'account.',
-            'controller' => \App\Http\Controllers\Api\Candidate\AccountController::class,
+            'controller' => Api\Candidate\AccountController::class,
             'prefix' => '/account'
         ], function () {
             Route::get('/', 'account')
                 ->name('index');
 
-            Route::match(['POST', 'PATCH'], '/', 'update')
+            Route::patch('/', 'update')
                 ->name('update');
 
             Route::post('/logout', 'logout')
@@ -73,14 +74,29 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
         Route::group([
             'as' => 'profile.',
-            'controller' => \App\Http\Controllers\Api\Candidate\ProfileController::class,
+            'controller' => Api\Candidate\ProfileController::class,
             'prefix' => '/profile'
         ], function () {
             Route::get('/', 'profile')
                 ->name('index');
 
-            Route::match(['POST', 'PATCH'], '/', 'update')
+            Route::patch('/', 'update')
                 ->name('update');
+        });
+
+        Route::group([
+            'as' => 'job-application.',
+            'controller' => Api\Candidate\JobApplicationController::class,
+            'prefix' => '/job-application'
+        ], function () {
+            Route::get('/', 'index')
+                ->name('index');
+
+            Route::post('/', 'store')
+                ->name('store');
+
+            Route::get('/{applicationId}', 'show')
+                ->name('show');
         });
     });
 
@@ -91,13 +107,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     ], function () {
         Route::group([
             'as' => 'account.',
-            'controller' => \App\Http\Controllers\Api\Company\AccountController::class,
+            'controller' => Api\Company\AccountController::class,
             'prefix' => '/account'
         ], function () {
             Route::get('/', 'account')
                 ->name('index');
 
-            Route::match(['POST', 'PATCH'], '/', 'update')
+            Route::patch('/', 'update')
                 ->name('update');
 
             Route::post('/logout', 'logout')
@@ -106,19 +122,19 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
         Route::group([
             'as' => 'profile.',
-            'controller' => \App\Http\Controllers\Api\Company\ProfileController::class,
+            'controller' => Api\Company\ProfileController::class,
             'prefix' => '/profile'
         ], function () {
             Route::get('/', 'profile')
                 ->name('index');
 
-            Route::match(['POST', 'PATCH'], '/', 'update')
+            Route::patch('/', 'update')
                 ->name('update');
         });
 
         Route::group([
             'as' => 'job-vacancy.',
-            'controller' => \App\Http\Controllers\Api\Company\JobVacancyController::class,
+            'controller' => Api\Company\JobVacancyController::class,
             'prefix' => '/job-vacancy'
         ], function () {
             Route::get('/', 'index')
@@ -130,8 +146,29 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::post('/', 'store')
                 ->name('store');
 
-//            Route::match(['POST', 'PATCH'], '/', 'update')
-//                ->name('update');
+            Route::patch('/{jobId}', 'update')
+                ->name('update');
+
+            Route::delete('/{jobId}', 'destroy')
+                ->name('delete');
+
+            Route::get('/{jobId}/application', 'jobApplication')
+                ->name('job-application');
+        });
+
+        Route::group([
+            'as' => 'job-application.',
+            'controller' => Api\Company\JobApplicationController::class,
+            'prefix' => '/job-application'
+        ], function () {
+            Route::get('/', 'index')
+                ->name('index');
+
+            Route::get('/{applicationId}', 'show')
+                ->name('show');
+
+            Route::patch('/{applicationId}', 'update')
+                ->name('update');
         });
     });
 });
@@ -140,15 +177,21 @@ Route::group([
     'as' => 'public.',
     'prefix' => '/public'
 ], function () {
-    Route::get('/candidate/{candidateId}', [\App\Http\Controllers\Api\General\CandidateController::class, 'profile'])
-        ->name('candidate.profile');
+    Route::get('/candidate/{candidateId}', [Api\General\CandidateController::class, 'show'])
+        ->name('candidate.show');
 
-    Route::get('/company/{companyId}', [\App\Http\Controllers\Api\General\CompanyController::class, 'profile'])
-        ->name('company.profile');
+    Route::get('/company/{companyId}', [Api\General\CompanyController::class, 'show'])
+        ->name('company.show');
 
-    Route::get('/job-category', [\App\Http\Controllers\Api\General\JobCategoryController::class, 'index'])
+    Route::get('/company/{companyId}/job-vacancy', [Api\General\CompanyController::class, 'jobVacancy'])
+        ->name('company.job-vacancy');
+
+    Route::get('/job-category', [Api\General\JobCategoryController::class, 'index'])
         ->name('job-category.index');
 
-    Route::get('/job-vacancy', [\App\Http\Controllers\Api\General\JobVacancyController::class, 'index'])
+    Route::get('/job-vacancy', [Api\General\JobVacancyController::class, 'index'])
         ->name('job-vacancy.index');
+
+    Route::get('/job-vacancy/{jobId}', [Api\General\JobVacancyController::class, 'show'])
+        ->name('job-vacancy.show');
 });

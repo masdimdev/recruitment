@@ -40,7 +40,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.profile.update'), [
+        $response = $this->patchJson(route('api.candidate.profile.update'), [
             'first_name' => $newFirstName
         ], [
             'Authorization' => "Bearer {$token}"
@@ -65,7 +65,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.profile.update'), [
+        $response = $this->patchJson(route('api.candidate.profile.update'), [
             'last_name' => $newLastName
         ], [
             'Authorization' => "Bearer {$token}"
@@ -89,7 +89,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.profile.update'), [
+        $response = $this->patchJson(route('api.candidate.profile.update'), [
             'phone_number' => $newPhoneNumber
         ], [
             'Authorization' => "Bearer {$token}"
@@ -113,7 +113,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.profile.update'), [
+        $response = $this->patchJson(route('api.candidate.profile.update'), [
             'phone_number' => $newPhoneNumber
         ], [
             'Authorization' => "Bearer {$token}"
@@ -141,7 +141,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.profile.update'), [
+        $response = $this->patchJson(route('api.candidate.profile.update'), [
             'phone_number' => $newPhoneNumber
         ], [
             'Authorization' => "Bearer {$token}"
@@ -163,7 +163,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.profile.update'), [
+        $response = $this->patchJson(route('api.candidate.profile.update'), [
             'address' => $newAddress
         ], [
             'Authorization' => "Bearer {$token}"
@@ -186,7 +186,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.profile.update'), [
+        $response = $this->patchJson(route('api.candidate.profile.update'), [
             'date_of_birth' => $newDateOfBirth
         ], [
             'Authorization' => "Bearer {$token}"
@@ -210,7 +210,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.profile.update'), [
+        $response = $this->patchJson(route('api.candidate.profile.update'), [
             'date_of_birth' => $newDateOfBirth
         ], [
             'Authorization' => "Bearer {$token}"
@@ -233,7 +233,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.profile.update'), [
+        $response = $this->patchJson(route('api.candidate.profile.update'), [
             'date_of_birth' => $newDateOfBirth
         ], [
             'Authorization' => "Bearer {$token}"
@@ -259,7 +259,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.profile.update'), [
+        $response = $this->patchJson(route('api.candidate.profile.update'), [
             'sex' => $newSex
         ], [
             'Authorization' => "Bearer {$token}"
@@ -283,7 +283,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.profile.update'), [
+        $response = $this->patchJson(route('api.candidate.profile.update'), [
             'date_of_birth' => $newSex
         ], [
             'Authorization' => "Bearer {$token}"

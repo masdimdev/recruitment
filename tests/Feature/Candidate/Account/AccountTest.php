@@ -49,7 +49,7 @@ class AccountTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.account.update'), [
+        $response = $this->patchJson(route('api.candidate.account.update'), [
             'first_name' => $newFirstName
         ], [
             'Authorization' => "Bearer {$token}"
@@ -76,7 +76,7 @@ class AccountTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.account.update'), [
+        $response = $this->patchJson(route('api.candidate.account.update'), [
             'last_name' => $newLastName
         ], [
             'Authorization' => "Bearer {$token}"
@@ -102,7 +102,7 @@ class AccountTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.account.update'), [
+        $response = $this->patchJson(route('api.candidate.account.update'), [
             'email' => $newEmail,
             'current_password' => $this->payload['password'],
         ], [
@@ -128,7 +128,7 @@ class AccountTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.account.update'), [
+        $response = $this->patchJson(route('api.candidate.account.update'), [
             'email' => $newEmail,
         ], [
             'Authorization' => "Bearer {$token}"
@@ -152,7 +152,7 @@ class AccountTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.account.update'), [
+        $response = $this->patchJson(route('api.candidate.account.update'), [
             'email' => $newEmail,
             'current_password' => 'wrong-password',
         ], [
@@ -177,7 +177,7 @@ class AccountTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.account.update'), [
+        $response = $this->patchJson(route('api.candidate.account.update'), [
             'new_password' => $newPassword,
             'new_password_confirmation' => $newPassword,
             'current_password' => $this->payload['password'],
@@ -203,7 +203,7 @@ class AccountTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.account.update'), [
+        $response = $this->patchJson(route('api.candidate.account.update'), [
             'new_password' => $newPassword,
             'new_password_confirmation' => $newPassword,
         ], [
@@ -228,7 +228,7 @@ class AccountTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.account.update'), [
+        $response = $this->patchJson(route('api.candidate.account.update'), [
             'new_password' => $newPassword,
             'new_password_confirmation' => $newPassword,
             'current_password' => 'wrong-password',
@@ -254,7 +254,7 @@ class AccountTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.account.update'), [
+        $response = $this->patchJson(route('api.candidate.account.update'), [
             'new_password' => $newPassword,
             'current_password' => $this->payload['password'],
         ], [
@@ -279,7 +279,7 @@ class AccountTest extends TestCase
 
         $token = $this->createCandidateToken($user);
 
-        $response = $this->postJson(route('api.candidate.account.update'), [
+        $response = $this->patchJson(route('api.candidate.account.update'), [
             'new_password' => $newPassword,
             'new_password_confirmation' => 'not-matching-new-password',
             'current_password' => $this->payload['password'],

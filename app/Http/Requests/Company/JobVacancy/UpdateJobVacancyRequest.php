@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Company\JobVacancy;
 
+use App\Models\JobCategory;
+use App\Models\JobVacancy;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateJobVacancyRequest extends FormRequest
 {
@@ -24,7 +27,19 @@ class UpdateJobVacancyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:100'],
+            'description' => ['required'],
+            'is_active' => ['required', 'boolean'],
+            'job_type' => [
+                'required',
+                Rule::in(
+                    JobVacancy::TYPE_FREELANCE,
+                    JobVacancy::TYPE_PART_TIME,
+                    JobVacancy::TYPE_INTERNSHIP,
+                    JobVacancy::TYPE_FULL_TIME,
+                )
+            ],
+            'job_category_id' => ['required', Rule::exists(JobCategory::class, 'id')],
         ];
     }
 }

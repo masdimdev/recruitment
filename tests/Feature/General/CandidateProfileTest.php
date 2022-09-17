@@ -17,7 +17,7 @@ class CandidateProfileTest extends TestCase
             'user_type' => User::TYPE_CANDIDATE,
         ]);
 
-        $response = $this->getJson(route('api.public.candidate.profile', ['candidateId' => $user->candidateProfile->id]));
+        $response = $this->getJson(route('api.public.candidate.show', ['candidateId' => $user->candidateProfile->id]));
 
         $response->assertSuccessful();
 
@@ -26,7 +26,7 @@ class CandidateProfileTest extends TestCase
 
     public function testUserCannotGetInvalidCandidatePublicProfile()
     {
-        $response = $this->getJson(route('api.public.candidate.profile', ['candidateId' => 'invalid-id']));
+        $response = $this->getJson(route('api.public.candidate.show', ['candidateId' => 'invalid-id']));
 
         $response->assertNotFound();
     }

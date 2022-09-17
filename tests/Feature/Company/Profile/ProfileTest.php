@@ -25,7 +25,7 @@ class ProfileTest extends TestCase
 
         $response->assertSuccessful();
 
-        $this->assertEquals($user->email, $response->json('data.email'));
+        $this->assertEquals($user->companyProfile->name, $response->json('data.name'));
     }
 
     public function testUserCanUpdateCompanyName()
@@ -38,7 +38,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCompanyToken($user);
 
-        $response = $this->postJson(route('api.company.profile.update'), [
+        $response = $this->patchJson(route('api.company.profile.update'), [
             'name' => $newCompanyName
         ], [
             'Authorization' => "Bearer {$token}"
@@ -61,7 +61,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCompanyToken($user);
 
-        $response = $this->postJson(route('api.company.profile.update'), [
+        $response = $this->patchJson(route('api.company.profile.update'), [
             'description' => $newDescription
         ], [
             'Authorization' => "Bearer {$token}"
@@ -84,7 +84,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCompanyToken($user);
 
-        $response = $this->postJson(route('api.company.profile.update'), [
+        $response = $this->patchJson(route('api.company.profile.update'), [
             'address' => $newAddress
         ], [
             'Authorization' => "Bearer {$token}"
@@ -107,7 +107,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCompanyToken($user);
 
-        $response = $this->postJson(route('api.company.profile.update'), [
+        $response = $this->patchJson(route('api.company.profile.update'), [
             'date_of_establishment' => $newDateOfEstablishment
         ], [
             'Authorization' => "Bearer {$token}"
@@ -131,7 +131,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCompanyToken($user);
 
-        $response = $this->postJson(route('api.company.profile.update'), [
+        $response = $this->patchJson(route('api.company.profile.update'), [
             'date_of_establishment' => $newDateOfEstablishment
         ], [
             'Authorization' => "Bearer {$token}"
@@ -154,7 +154,7 @@ class ProfileTest extends TestCase
 
         $token = $this->createCompanyToken($user);
 
-        $response = $this->postJson(route('api.company.profile.update'), [
+        $response = $this->patchJson(route('api.company.profile.update'), [
             'date_of_establishment' => $newDateOfEstablishment
         ], [
             'Authorization' => "Bearer {$token}"

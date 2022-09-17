@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Traits\ApiResponse;
+use OpenApi\Annotations as OA;
 
 /**
  * @OA\Info(
