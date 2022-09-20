@@ -98,6 +98,15 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::get('/{applicationId}', 'show')
                 ->name('show');
         });
+
+        Route::group([
+            'as' => 'notification.',
+            'controller' => Api\Candidate\NotificationController::class,
+            'prefix' => '/notification'
+        ], function () {
+            Route::get('/', 'index')
+                ->name('index');
+        });
     });
 
     Route::group([

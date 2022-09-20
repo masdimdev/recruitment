@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Candidate;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Candidate\Profile\UpdateProfileRequest;
 use App\Http\Resources\CandidateProfileResource;
+use App\Http\Resources\NotificationResource;
+use Illuminate\Http\Request;
 
 class ProfileController extends ApiController
 {
